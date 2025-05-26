@@ -11,11 +11,8 @@ export default function Home() {
         <Link className="text-blue-500 hover:text-blue-700 hover:underline" href={"/window-print"}>
           2. window.print()
         </Link>
-        <Link className="text-blue-500 hover:text-blue-700 hover:underline" href={"/react-pdf"}>
-          3. react-pdf
-        </Link>
         <Link className="text-blue-500 hover:text-blue-700 hover:underline" href={"/react-pdf-renderer"}>
-          4. @react-pdf/renderer
+          3. @react-pdf/renderer
         </Link>
      </div>
     </div>

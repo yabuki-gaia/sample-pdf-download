@@ -1,54 +1,94 @@
 "use client"
+import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import { NotoSansJPFont } from "@/fonts/NotoSansJP-Regular";
 export default function JsPdfView() {
-  const handlePDFDownload = () => {
-    const pdf = new jsPDF();
-    pdf.addFileToVFS("NotoSansJP-Regular.ttf", NotoSansJPFont);
-    pdf.addFont("NotoSansJP-Regular.ttf", "NotoSansJP", "normal");
-    pdf.setFont("NotoSansJP");
 
-    pdf.text("お取引内容", 10, 20);
-    pdf.text("取引金額", 10, 30);
+  // 日本語版のダウンロード
+  const handlePDFDownload = async () => {
+    const element = document.getElementById("pdf-content-japanese");
+    if (!element) return;
 
-    pdf.save("receipt.pdf");
+    const canvas = await html2canvas(element, { scale: 2 });
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save("transaction.pdf");
   };
 
+  // 英語版のダウンロード
+  const handlePDFDownloadEnglish = async () => {
+    const element = document.getElementById("pdf-content-english");
+    if (!element) return;
 
- // 英語版
- const handlePDFDownloadEnglish = () => {
-  const pdf = new jsPDF();
-  const maxWidth = 180; 
-  const longText = "A proprietary trade involving the exchange of fiat currency to crypto assets, based on the purchase of fiat currency from the customer by our company.";
+    const canvas = await html2canvas(element, { scale: 2 });
+    const imgData = canvas.toDataURL("image/png");
 
-  pdf.setFontSize(24);
-  pdf.text("Transaction Receipt", 10, 20);
-  
-  pdf.setFontSize(12);
-  pdf.text("Order Number: 2019", 10, 30);
-  
-  pdf.text("Transaction Details", 10, 40); 
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
-  const wrappedText = pdf.splitTextToSize(longText, maxWidth);
-  pdf.text(wrappedText, 10, 45); 
-
-  pdf.text("Order Date and Time: 2025-05-26 13:18", 10, 60);
-  pdf.text("Executed Quantity: 0 ETH", 10, 70);
-  pdf.text("Deposit Amount: ¥1,000", 10, 80);
-
-  pdf.save("receipt.pdf");
+    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save("transaction.pdf");
  }
   return (
     
     <div>
-      <div className="flex gap-2">
-        <button className="bg-blue-500 text-white p-2 rounded-md" onClick={handlePDFDownload}>download</button>
-        <button className="bg-blue-500 text-white p-2 rounded-md" onClick={handlePDFDownloadEnglish}>English</button>
-      </div>
       <p>JSPDFを使用してPDFをダウンロードする</p>
     
-      <div id="pdf-content">
-        <h1>Hello world!</h1>
+      <div className="flex w-full gap-4 flex-wrap">
+        {/* 日本語ブロック */}
+        <div className="w-full md:w-1/2 p-2">
+          <div
+            id="pdf-content-japanese"
+            className="p-4 bg-white  w-full shadow"
+          >
+            <h1 className="text-2xl font-bold">お取引内容</h1>
+            <p>注文番号：2019</p>
+            <p>取引内容：お客様の円貨の売却に対する暗号資産への両替取引</p>
+            <p>受発注日時：2025-05-26 13:18</p>
+            <p>約定数量：0 ETH</p>
+            <p>入金額：1,000 円</p>
+          </div>
+          <div className="mt-2 text-center flex justify-end">
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded-md"
+              onClick={handlePDFDownload}
+            >
+              Download 日本語
+            </button>
+          </div>
+        </div>
+
+        {/* 英語ブロック */}
+        <div className="w-full md:w-1/2 p-2">
+          <div
+            id="pdf-content-english"
+            className="p-4 bg-white text-black w-full shadow"
+          >
+            <h1 className="text-2xl font-bold">Transaction Details</h1>
+            <p>Order Number: 2019</p>
+            <p>
+              Transaction Details: A proprietary trade involving the exchange of fiat
+              currency to crypto assets, based on the purchase of fiat currency from
+              the customer by our company.
+            </p>
+            <p>Order Date and Time: 2025-05-26 13:18</p>
+            <p>Executed Quantity: 0 ETH</p>
+            <p>Deposit Amount: ¥1,000</p>
+          </div>
+          <div className="mt-2 text-center flex justify-end">
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded-md"
+              onClick={handlePDFDownloadEnglish}
+            >
+              Download English
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   )
