@@ -55,7 +55,7 @@ export default function PdfDownloadButtons({ transaction }: PdfDownloadButtonsPr
     </Document>
   );
   return (
-    <div className="p-4 gap-4 w-1/2">
+    <div className="p-4 gap-4 w-full md:w-1/2">
       <p>改行などで表示が崩れる可能性あり</p>
         <div
             id="pdf-content-japanese"
