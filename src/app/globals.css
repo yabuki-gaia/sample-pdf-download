@@ -24,3 +24,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@media print {
+
+  #pdf-download-button-japanese,
+  #how-to-use {
+    display: none !important;
+  }
+}
