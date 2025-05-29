@@ -8,13 +8,16 @@ const PdfDownloadButtons = dynamic(() => import("@/components/feature/pdf-downlo
 
 type ReactPdfRendererProps = {
   transaction: Transaction;
+  token: string;
 }
 
-export default function ReactPdfRenderView({ transaction }: ReactPdfRendererProps) {
+export default function ReactPdfRenderView({ transaction, token }: ReactPdfRendererProps) {
+
   return (
    <div>
     <PdfDownloadButtons 
       transaction={transaction}
+      token={token}
      />
    </div>
   );

@@ -1,19 +1,12 @@
 "use client"
-export default function WindowPrintView() {
-  const transaction = {
-    transacitonId: "2019",
-    transactedAt: "2025-05-26 13:18",
-    sendAmount: "0.0001",
-    amount: "0.0001",
-    currencyType: "ETH",
-    feePercentage: 10,
-    jpCommission: 0,
-    jpCommissionTax: 9,
-    commission: "0.0001",
-    jpAmount: 1000,
-    rate: 15597938,
+import { Transaction } from "@/types/transaction";
 
-  }
+type WindowPrintViewProps = { 
+  transaction: Transaction;
+  token: string;
+}
+
+export default function WindowPrintView({ transaction, token }: WindowPrintViewProps) {
 
   // 日本語を印刷
   const handlePDFDownload = () => {
@@ -56,6 +49,9 @@ export default function WindowPrintView() {
             <p>株式会社ガイア 登録番号：T8120001128473</p>
             <p>8%対象：{transaction.jpAmount.toLocaleString()} 円 （内 消費税額 0 円）</p>
             <p>{transaction.feePercentage}%対象：{transaction.jpCommission.toLocaleString()} 円 （内 消費税額 {transaction.jpCommissionTax.toLocaleString()} 円）</p>
+
+            <p className="text-sm mt-4 text-gray-300 ">検証トークン</p>
+            <p className="text-sm md:text-xs ">{token}</p>
           </div>
           <button
               id="pdf-download-button-japanese"

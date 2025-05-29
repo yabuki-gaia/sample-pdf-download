@@ -30,10 +30,11 @@ const styles = StyleSheet.create({
 
 type PdfDownloadButtonsProps = {
   transaction: Transaction;
+  token: string;
 }
 
-export default function PdfDownloadButtons({ transaction }: PdfDownloadButtonsProps) {
-  //  日本語PDF
+export default function PdfDownloadButtons({ transaction, token }: PdfDownloadButtonsProps) {
+
   const DocumentPDFJapanese = () => (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -50,6 +51,9 @@ export default function PdfDownloadButtons({ transaction }: PdfDownloadButtonsPr
           <Text>株式会社ガイア 登録番号：T8120001128473</Text>
           <Text>8%対象：{transaction.jpAmount.toLocaleString()} 円 （内 消費税額 0 円）</Text>
           <Text>{transaction.feePercentage}%対象：{transaction.jpCommission} 円 （内 消費税額 {transaction.jpCommissionTax} 円）</Text>
+
+          <Text>この取引は以下のトークンで保護されています：</Text>
+          <Text>{token}</Text>
         </View>
       </Page>
     </Document>
@@ -79,13 +83,13 @@ export default function PdfDownloadButtons({ transaction }: PdfDownloadButtonsPr
             <p>{transaction.feePercentage}%対象：{transaction.jpCommission} 円 （内 消費税額 {transaction.jpCommissionTax} 円）</p>
         </div>
       <div className="flex justify-end py-2">
-        <PDFDownloadLink
-          document={<DocumentPDFJapanese />}
-          fileName="transaction-jp.pdf"
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          {({ loading }) => (loading ? "読み込み中..." : "PDFをダウンロード")}
-        </PDFDownloadLink>
+          <PDFDownloadLink
+            document={<DocumentPDFJapanese />}
+            fileName="transaction-jp.pdf"
+            className="bg-blue-600 text-white px-4 py-2 rounded"
+          >
+            {({ loading }) => (loading ? "読み込み中..." : "PDFをダウンロード")}
+          </PDFDownloadLink>
       </div>
     </div>
   );

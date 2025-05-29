@@ -1,40 +1,38 @@
 import ReactPdfRenderView from "@/components/views/react-pdf-render-view";
-import { Transaction } from "@/types/transaction";
+import { sampleTransaction } from "@/types/transaction";
 import { Metadata } from "next";
+import jwt from "jsonwebtoken";
 
 export const metadata: Metadata = {
   title: "React PDF Renderer",
   description: "React PDF Renderer",
 }
 
-export default function ReactPdfRenderer() {
-  const randomDate = new Date(Date.now() - Math.random() * 1000 * 60 * 60 * 24 * 365);
-  const randomDateString = randomDate.toLocaleString("ja-JP", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",  
-  });
+export default async function ReactPdfRenderer() {
+  
+  const transaction = sampleTransaction;
+  //署名　秘密鍵 jwt
+  const payload = {
+    "取引番号": transaction.transacitonId,
+    "受領暗号資産数量": transaction.sendAmount,
+    "約定暗号資産数量": transaction.amount,
+    "約定日時": transaction.transactedAt,
+    "両替手数料": transaction.feePercentage,
+    "両替希望円貨額": transaction.jpAmount,
+    "取引レート": transaction.rate,
+    "取引通貨": transaction.currencyType,
+  };
+  
+  const secret = process.env.JWT_SECRET!;
+  const token = jwt.sign(
+      payload, 
+      secret, 
+      { algorithm: "HS256",noTimestamp: true,}
+    );
 
-  // ランダムな金額を生成
-  const randomAmount = Math.floor(Math.random() * 1000000);
-  const randomAmountString = randomAmount.toLocaleString("ja-JP");
-
-  const transaction: Transaction = {
-    transacitonId: "2019",
-    transactedAt: randomDateString,
-    sendAmount: randomAmountString,
-    amount: randomAmountString,
-    currencyType: "ETH",
-    feePercentage: 10,
-    jpCommission: 0,
-    jpCommissionTax: 9,
-    commission: "0.0001",
-    jpAmount: 1000,
-    rate: 15597938,
-
-  }
-
-  return <ReactPdfRenderView transaction={transaction} />;
+  console.log(token);
+  return <ReactPdfRenderView 
+    transaction={transaction}
+    token={token}
+   />;
 }
