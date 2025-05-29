@@ -36,6 +36,7 @@ export default function WindowPrintView() {
   return (
     <div>
       <div className="flex w-full gap-4 flex-wrap">
+        
         {/* 日本語ブロック */}
         <div className="w-full p-2 mx-auto">
           <div

@@ -58,6 +58,7 @@ export default function JsPdfView() {
       <p>JSPDFを使用してPDFをダウンロードする</p>
       <p>tailwindcssの色指定を使用できない</p>
       <p>モバイルとPCでPDFの表示が違う</p>
+      <p>ダウンロードするＰＤＦが簡単に改ざんができる</p>
     
       <div className="w-full md:w-1/2 p-2">
           <div

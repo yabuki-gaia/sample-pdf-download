@@ -33,7 +33,7 @@ type PdfDownloadButtonsProps = {
 }
 
 export default function PdfDownloadButtons({ transaction }: PdfDownloadButtonsProps) {
-  // ✅ 日本語PDF
+  //  日本語PDF
   const DocumentPDFJapanese = () => (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -45,10 +45,10 @@ export default function PdfDownloadButtons({ transaction }: PdfDownloadButtonsPr
           <Text>受領暗号資産数量：{transaction.sendAmount} {transaction.currencyType}</Text>
           <Text>約定暗号資産数量：{transaction.amount} {transaction.currencyType}</Text>
           <Text>両替手数料{transaction.feePercentage}%（消費税込）：{transaction.jpCommission} 円（約定暗号資産数量の内、{transaction.commission} {transaction.currencyType}が相当します。）</Text>
-          <Text>両替希望円貨額：{transaction.jpAmount} 円</Text>
+          <Text>両替希望円貨額：{transaction.jpAmount.toLocaleString()} 円</Text>
           <Text>取引レート（実勢交換レート）：{transaction.rate.toLocaleString()} 円</Text>
           <Text>株式会社ガイア 登録番号：T8120001128473</Text>
-          <Text>8%対象：{transaction.jpAmount} 円 （内 消費税額 0 円）</Text>
+          <Text>8%対象：{transaction.jpAmount.toLocaleString()} 円 （内 消費税額 0 円）</Text>
           <Text>{transaction.feePercentage}%対象：{transaction.jpCommission} 円 （内 消費税額 {transaction.jpCommissionTax} 円）</Text>
         </View>
       </Page>
@@ -56,7 +56,7 @@ export default function PdfDownloadButtons({ transaction }: PdfDownloadButtonsPr
   );
   return (
     <div className="p-4 gap-4 w-full md:w-1/2">
-      <p>改行などで表示が崩れる可能性あり</p>
+      <p>ブラウザとPDFで表示が異なる可能性あり(改行などで崩れる可能性あり)</p>
         <div
             id="pdf-content-japanese"
             className="p-4 bg-white "
@@ -71,13 +71,13 @@ export default function PdfDownloadButtons({ transaction }: PdfDownloadButtonsPr
             <p>受領暗号資産数量：{transaction.sendAmount} {transaction.currencyType}</p>
             <p>約定暗号資産数量：{transaction.amount} {transaction.currencyType}</p>
             <p>両替手数料{transaction.feePercentage}%（消費税込）：{transaction.jpCommission} 円（約定暗号資産数量の内、{transaction.commission} {transaction.currencyType}が相当します。）</p>
-            <p>両替希望円貨額：{transaction.jpAmount} 円</p>
-            <p>取引レート（実勢交換レート）：{transaction.rate} 円</p>
+            <p>両替希望円貨額：{transaction.jpAmount.toLocaleString()} 円</p>
+            <p>取引レート（実勢交換レート）：{transaction.rate.toLocaleString()} 円</p>
 
             <p>株式会社ガイア 登録番号：T8120001128473</p>
-            <p>8%対象：{transaction.jpAmount} 円 （内 消費税額 0 円）</p>
+            <p>8%対象：{transaction.jpAmount.toLocaleString()} 円 （内 消費税額 0 円）</p>
             <p>{transaction.feePercentage}%対象：{transaction.jpCommission} 円 （内 消費税額 {transaction.jpCommissionTax} 円）</p>
-          </div>
+        </div>
       <div className="flex justify-end py-2">
         <PDFDownloadLink
           document={<DocumentPDFJapanese />}
