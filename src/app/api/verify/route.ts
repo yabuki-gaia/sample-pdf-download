@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   try {
     const decoded = jwt.verify(token, secret);
     return NextResponse.json({ valid: true, payload: decoded });
-  } catch (e) {
-    return NextResponse.json({ valid: false, error: e.message });
+  } catch {
+    return NextResponse.json({ valid: false, error: "Invalid token" });
   }
 }

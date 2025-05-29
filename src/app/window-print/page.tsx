@@ -29,7 +29,7 @@ export default function WindowPrint() {
       { algorithm: "HS256",noTimestamp: true,}
     );
 
-    console.log(token);
+    // console.log(token);
   
   return <WindowPrintView transaction={sampleTransaction} token={token} />;
 }
