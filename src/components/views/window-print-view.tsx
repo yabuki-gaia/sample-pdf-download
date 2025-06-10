@@ -36,13 +36,13 @@ export default function WindowPrintView({ transaction }: WindowPrintViewProps) {
             className="p-4 bg-white  w-full"
           >
             <h1 className="text-2xl font-bold">取引内容</h1>
-            <p> <span className="font-bold w-10">■</span>注文番号：{transaction.transacitonId}</p>
-            <p> <span className="font-bold">■</span>取引内容：お客様の円貨の売却に対する暗号資産への両替取引</p>
-            <p> <span className="font-bold">■</span>約定日時：{transaction.transactedAt}</p>
-            <p> <span className="font-bold">■</span>受領暗号資産数量：{transaction.sendAmount} {transaction.currencyType}</p>
-            <p> <span className="font-bold">■</span>約定暗号資産数量：{transaction.amount} {transaction.currencyType}</p>
-            <p> <span className="font-bold">■</span>両替手数料{transaction.feePercentage}%（消費税込）：{transaction.jpCommission} 円（約定暗号資産数量の内、{transaction.commission} {transaction.currencyType}が相当します。）</p>
-            <p> <span className="font-bold">■</span>両替希望円貨額：{transaction.jpAmount} 円</p>
+            <p className="">■ 注文番号：{transaction.transacitonId}</p>
+            <p className="">■ 取引内容：お客様の円貨の売却に対する暗号資産への両替取引</p>
+            <p className="">■ 約定日時：{transaction.transactedAt}</p>
+            <p className="">■ 受領暗号資産数量：{transaction.sendAmount} {transaction.currencyType}</p>
+            <p className="">■ 約定暗号資産数量：{transaction.amount} {transaction.currencyType}</p>
+            <p className="">■ 両替手数料{transaction.feePercentage}%（消費税込）：{transaction.jpCommission} 円（約定暗号資産数量の内、{transaction.commission} {transaction.currencyType}が相当します。）</p>
+            <p className="">■ 両替希望円貨額：{transaction.jpAmount} 円</p>
             <p>■ 取引レート（実勢交換レート）：{transaction.rate.toLocaleString()} 円</p>
 
             <p>株式会社ガイア 登録番号：T8120001128473</p>
