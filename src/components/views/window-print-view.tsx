@@ -3,10 +3,9 @@ import { Transaction } from "@/types/transaction";
 
 type WindowPrintViewProps = { 
   transaction: Transaction;
-  token: string;
 }
 
-export default function WindowPrintView({ transaction, token }: WindowPrintViewProps) {
+export default function WindowPrintView({ transaction }: WindowPrintViewProps) {
 
   // 日本語を印刷
   const handlePDFDownload = () => {
@@ -49,9 +48,6 @@ export default function WindowPrintView({ transaction, token }: WindowPrintViewP
             <p>株式会社ガイア 登録番号：T8120001128473</p>
             <p>8%対象：{transaction.jpAmount.toLocaleString()} 円 （内 消費税額 0 円）</p>
             <p>{transaction.feePercentage}%対象：{transaction.jpCommission.toLocaleString()} 円 （内 消費税額 {transaction.jpCommissionTax.toLocaleString()} 円）</p>
-
-            <p className="text-sm mt-4 text-gray-300 ">検証トークン</p>
-            <p className="text-sm md:text-xs ">{token}</p>
           </div>
           <button
               id="pdf-download-button-japanese"

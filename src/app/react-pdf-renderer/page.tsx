@@ -30,7 +30,7 @@ export default async function ReactPdfRenderer() {
       { algorithm: "HS256",noTimestamp: true,}
     );
 
-  console.log(token);
+  // console.log(token);
   return <ReactPdfRenderView 
     transaction={transaction}
     token={token}
